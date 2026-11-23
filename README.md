@@ -1,6 +1,6 @@
 # expo.gaubase.org
 
-Website for the Expo, **26–29 March 2027**, SGCCI Sarsana (SIECC), Surat.
+Website for the Expo, **10–12 April 2027**, SGCCI Sarsana (SIECC), Surat.
 
 Right now this repo holds a "coming soon" placeholder. The expo committee's
 technical team will build the full site here.
