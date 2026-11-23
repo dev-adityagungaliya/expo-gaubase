@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+# Every push to master (including a merged pull request) publishes the site
+# to https://expo.gaubase.org. It can also be run by hand from the Actions tab.
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # If the site gets a build step later (React, Next.js export, Astro, etc.),
+      # add setup-node + "npm ci && npm run build" here and point `path` below
+      # at the build output folder (e.g. dist/ or out/).
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
